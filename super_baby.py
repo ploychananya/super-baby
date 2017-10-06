@@ -61,7 +61,7 @@ class SpaceGameWindow(arcade.Window):
          
         elif(not Insert_key):
             self.baby.set_position(self.baby.center_x, self.baby.center_y-(I*I))
-            I+=0.07
+            I+=0.27
             T=6
             print(I)
 
