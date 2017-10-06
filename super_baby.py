@@ -1,18 +1,25 @@
 import arcade
 import arcade.key
+from random import randint
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 SCALE = 0.23
 I=0
 T=0
+TIME=randint(0,10)
+check_firsttime=False
 Insert_key=False
 
  
 class SpaceGameWindow(arcade.Window):
+    def __del__(self):
+        print("delete")
+    
     def __init__(self, width, height):   # justify shape of obj
         super().__init__(width, height)
- 
+
+        global TIME
         arcade.set_background_color(arcade.color.WHITE)
 
         self.baby = arcade.Sprite('character/babyfly1.png',SCALE)
@@ -29,13 +36,25 @@ class SpaceGameWindow(arcade.Window):
         self.hok.set_position(555,150) 
 
         self.hok_move =arcade.Sprite('character/hok_move.png',0.3)
-        self.hok_move.set_position(850,180)
+        
 
         self.kill_block1 =arcade.Sprite('character/killblock1.png',SCALE)
-        self.kill_block1.set_position(990,538) 
-
         self.kill_block2 =arcade.Sprite('character/killblock2.png',SCALE)
-        self.kill_block2.set_position(300,538) 
+        if(TIME%7==0):
+            #self.kill_block1 =arcade.Sprite('character/killblock1.png',SCALE)
+             self.kill_block1.set_position(1280,538)
+             TIME=randint(0,10)
+             print(TIME)
+             
+         #    TIME=randint(0,10)
+            #self.kill_block1.random_killblock()
+        elif(TIME%3==0): 
+             self.kill_block2.set_position(1280,538)
+             TIME=randint(0,10)
+             print(TIME)
+         
+        #self.kill_block2 =arcade.Sprite('character/killblock2.png',SCALE)
+            #self.kill_block2.random_killblock()
 
         self.bomb =arcade.Sprite('character/bomb.png',SCALE)
         self.bomb.set_position(680,560) 
@@ -46,12 +65,19 @@ class SpaceGameWindow(arcade.Window):
         self.ghost =arcade.Sprite('character/ghost.png',SCALE)
         self.ghost.set_position(1200,230)
 
-   
+    #def random_killblock(self):
+    #    self.x = randint(0, self.world.width - 1)
+     #   self.y = 538
+#def random_hok(self):
+ #       self.x = randint(0, self.world.width - 1)
+  #      self.y = randint(0, self.world.height - 1)
+
     def update(self, delta):
-    
-        global I,Insert_key,T
-    
-        if(Insert_key):
+        global I,Insert_key,T,check_firsttime,TIME
+        
+        self.kill_block1.set_position(self.kill_block1.center_x-4, 538)
+        self.kill_block2.set_position(self.kill_block2.center_x-4, 538)
+        if(Insert_key and check_firsttime):
             I=0
             self.baby.set_position(self.baby.center_x, self.baby.center_y+(T*T))
             T-=0.5
@@ -59,11 +85,12 @@ class SpaceGameWindow(arcade.Window):
                 Insert_key=False
             
          
-        elif(not Insert_key):
+        elif(not Insert_key and check_firsttime):
+            T+=1
             self.baby.set_position(self.baby.center_x, self.baby.center_y-(I*I))
-            I+=0.27
+            I+=0.23
             T=6
-            print(I)
+            #print(I)
 
     def on_draw(self):
         arcade.start_render()
@@ -80,10 +107,11 @@ class SpaceGameWindow(arcade.Window):
         self.ghost.draw()
    
     def on_key_press(self, key, key_modifiers):
-        global Insert_key
+        global Insert_key,check_firsttime
         if key == arcade.key.UP:
             #self.on_key_press(key, key_modifiers)
             print("on key Up")
+            check_firsttime=True
             Insert_key=True
             #global I
      
