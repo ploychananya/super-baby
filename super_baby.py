@@ -133,9 +133,9 @@ class SpaceGameWindow(arcade.Window):
 
         if character.check_firsttime and not character.can_control:
             arcade.draw_text(str(self.world.score),595, 355,arcade.color.RED, 40)  
-            if check_play_gameover_sound:
-                arcade.sound.play_sound(self.sound_gameover)
-                check_play_gameover_sound=False
+            #if check_play_gameover_sound:
+               # arcade.sound.play_sound(self.sound_gameover)
+               # check_play_gameover_sound=False
             
     def update(self, delta):
         #self.baby.set_position(self.baby.center_x+5, self.baby.center_y)
