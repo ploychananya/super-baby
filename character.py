@@ -7,6 +7,9 @@ check_play_hok_sound=True
 check_play_brick_sound=True
 check_play_ghost_sound=True
 check_play_bomb_sound=True
+check_play_margin_sound=True
+check_play_gameover_sound =True
+check_play_open_sound =True
 count_hok_move = 0
 count_hok_move2 = 0
 count_hok_move3 = 0
@@ -38,7 +41,15 @@ class Model:
         return (abs(self.x - other.x) <= hit_size_x) and (abs(self.y - other.y) <= hit_size_y)
     
     def touch_margin(self):
+        global check_play_margin_sound,can_control
         if self.y>620 or self.y<90 :
+            if can_control and check_play_margin_sound:
+                if self.y>620:
+                    arcade.sound.play_sound(self.world.sound_brick)
+                    check_play_margin_sound=False
+                elif self.y<90:
+                    arcade.sound.play_sound(self.world.sound_blood)
+                    check_play_margin_sound=False
             return True
 
     def fixed_thing_move(self,specify):
@@ -188,10 +199,14 @@ class Baby(Model):
        
  
     def update(self, delta):
-        global I,T,Insert_key,check_firsttime,can_control
+        global I,T,Insert_key,check_firsttime,can_control,check_play_open_sound
         if(self.x<150):
             self.x+=3
+            if check_play_open_sound:
+                arcade.sound.play_sound(self.world.sound_open)
+                check_play_open_sound=False
             if(self.x>=150):
+
                 can_control=True
         print(Insert_key,check_firsttime)
         if(Insert_key and check_firsttime):#JUMP
@@ -288,13 +303,10 @@ class Hok(Model):
             self.world.hok.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok!")
-            can_control=False;
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and  can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
-
+            can_control=False
             
 
 class Hok2(Model):  
@@ -313,12 +325,10 @@ class Hok2(Model):
             self.world.hok2.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok2!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
             
 class Hok3(Model):  
     #def __init__(self, x, y):
@@ -336,12 +346,10 @@ class Hok3(Model):
             self.world.hok3.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok3!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and  can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
 
 class Hok4(Model):  
     #def __init__(self, x, y):
@@ -359,12 +367,10 @@ class Hok4(Model):
             self.world.hok4.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok4!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
 
 class Hok5(Model):  
     #def __init__(self, x, y):
@@ -382,12 +388,10 @@ class Hok5(Model):
             self.world.hok5.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok5!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
 
 class Hok6(Model):  
     #def __init__(self, x, y):
@@ -405,12 +409,10 @@ class Hok6(Model):
             self.world.hok6.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok6!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and  can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
 
 class Hok7(Model):  
     #def __init__(self, x, y):
@@ -428,12 +430,10 @@ class Hok7(Model):
             self.world.hok7.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok7!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
           
 class Hok_Move(Model):  
     #def __init__(self, x, y):
@@ -451,12 +451,10 @@ class Hok_Move(Model):
             self.world.hok_move.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
        
         if(check_firsttime):
             '''
@@ -486,12 +484,11 @@ class Hok_Move2(Model):
             self.world.hok_move2.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move2!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
+            
        
         if(check_firsttime):
             self.world.hok_move2.Hok_Movement(2)   
@@ -512,12 +509,10 @@ class Hok_Move3(Model):
             self.world.hok_move3.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move3!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
        
         if(check_firsttime):
             self.world.hok_move3.Hok_Movement(3)          
@@ -538,12 +533,10 @@ class Hok_Move4(Model):
             self.world.hok_move4.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move4!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and  can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
        
         if(check_firsttime):
             self.world.hok_move4.Hok_Movement(4)   
@@ -564,12 +557,10 @@ class Hok_Move5(Model):
             self.world.hok_move5.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move5!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
        
         if(check_firsttime):
             self.world.hok_move5.Hok_Movement(5)            
@@ -590,12 +581,11 @@ class Hok_Move6(Model):
             self.world.hok_move6.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move6!")
-            can_control=False
-            if check_play_hok_sound and not can_control:
+            if check_play_hok_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
-                time.sleep(0.03)
-                arcade.sound.play_sound(self.world.sound_gameover)
                 check_play_hok_sound=False
+            can_control=False
+            
        
         if(check_firsttime):
             self.world.hok_move6.Hok_Movement(6)            
@@ -610,11 +600,14 @@ class Killblock_One(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one.Check_performance():
             self.world.killblock_one.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
 
 class Killblock_One2(Model):  
@@ -627,12 +620,16 @@ class Killblock_One2(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one2.Check_performance():
             self.world.killblock_one2.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1,2!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_One3(Model):  
     #def __init__(self, x, y):
@@ -644,12 +641,16 @@ class Killblock_One3(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one3.Check_performance():
             self.world.killblock_one3.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1,3!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_One4(Model):  
     #def __init__(self, x, y):
@@ -661,12 +662,16 @@ class Killblock_One4(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one4.Check_performance():
             self.world.killblock_one4.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1,4!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_One5(Model):  
     #def __init__(self, x, y):
@@ -678,12 +683,16 @@ class Killblock_One5(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one5.Check_performance():
             self.world.killblock_one5.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1,5!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_One6(Model):  
     #def __init__(self, x, y):
@@ -695,12 +704,16 @@ class Killblock_One6(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_one6.Check_performance():
             self.world.killblock_one6.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 1,6!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two(Model):  
     #def __init__(self, x, y):
@@ -712,12 +725,16 @@ class Killblock_Two(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two.Check_performance():
             self.world.killblock_two.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two2(Model):  
     #def __init__(self, x, y):
@@ -729,12 +746,16 @@ class Killblock_Two2(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two2.Check_performance():
             self.world.killblock_two2.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2,2!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two3(Model):  
     #def __init__(self, x, y):
@@ -746,12 +767,16 @@ class Killblock_Two3(Model):
         self.check_inwindow =False
  
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two3.Check_performance():
             self.world.killblock_two3.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2,3!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two4(Model):  
     #def __init__(self, x, y):
@@ -763,12 +788,16 @@ class Killblock_Two4(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two4.Check_performance():
             self.world.killblock_two4.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2,4!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two5(Model):  
     #def __init__(self, x, y):
@@ -780,12 +809,16 @@ class Killblock_Two5(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two5.Check_performance():
             self.world.killblock_two5.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2,5!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Killblock_Two6(Model):  
     #def __init__(self, x, y):
@@ -797,12 +830,16 @@ class Killblock_Two6(Model):
         self.check_inwindow =False
         
     def update(self, delta):
-        global can_control
+        global can_control,check_play_brick_sound
         if self.world.killblock_two6.Check_performance():
             self.world.killblock_two6.Move(0)
         if self.world.baby.hit(self,100,70):
             print("hit kill 2,6!")
+            if check_play_brick_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_brick)
+                check_play_brick_sound=False
             can_control=False
+
 
 class Bomb(Model):  
     #def __init__(self, x, y):
@@ -814,11 +851,14 @@ class Bomb(Model):
         self.check_inwindow =False
 
     def update(self, delta):
-        global can_control 
+        global can_control,check_play_bomb_sound
         if self.world.bomb.Check_performance():
             self.world.bomb.Move(0)
         if self.world.baby.hit(self,100,50):
             print("hit BOMB!")
+            if check_play_bomb_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_bomb)
+                check_play_bomb_sound=False
             can_control=False
 
 class Bomb2(Model):  
@@ -831,11 +871,14 @@ class Bomb2(Model):
         self.check_inwindow =False
   
     def update(self, delta):
-        global can_control 
+        global can_control,check_play_bomb_sound
         if self.world.bomb2.Check_performance():
             self.world.bomb2.Move(0)
         if self.world.baby.hit(self,100,50):
             print("hit BOMB 2!")
+            if check_play_bomb_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_bomb)
+                check_play_bomb_sound=False
             can_control=False
 
 class Bomb3(Model):  
@@ -848,11 +891,14 @@ class Bomb3(Model):
         self.check_inwindow =False
  
     def update(self, delta):
-        global can_control 
+        global can_control,check_play_bomb_sound
         if self.world.bomb3.Check_performance():
             self.world.bomb3.Move(0)
         if self.world.baby.hit(self,100,50):
             print("hit BOMB 3!")
+            if check_play_bomb_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_bomb)
+                check_play_bomb_sound=False
             can_control=False
 
 class Ghost(Model):  
@@ -867,7 +913,7 @@ class Ghost(Model):
     def update(self, delta):
       #  if(self.world.ghost.obstacle_random_performance(6)):
      #           self.world.ghost.Move(5)
-        global count_time,check_firsttime,can_control
+        global count_time,check_firsttime,can_control,check_play_ghost_sound
         
         if(not self.check_inwindow):
             self.y=randint(50,self.world.height-130)
@@ -878,6 +924,9 @@ class Ghost(Model):
 
         if self.world.baby.hit(self,70,50):
             print("hit ghost 1!")
+            if check_play_ghost_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_monster)
+                check_play_ghost_sound=False
             can_control=False
 
 class Ghost_Two(Model):  
@@ -890,7 +939,7 @@ class Ghost_Two(Model):
         self.check_inwindow =False
 
     def update(self, delta):
-        global count_time,check_firsttime,can_control
+        global count_time,check_firsttime,can_control,check_play_ghost_sound
     
         if( not self.check_inwindow):
             self.y=randint(50,self.world.height-130)
@@ -901,7 +950,11 @@ class Ghost_Two(Model):
         
         if self.world.baby.hit(self,70,50):
             print("hit ghost 2!")
+            if check_play_ghost_sound and can_control:
+                arcade.sound.play_sound(self.world.sound_monster)
+                check_play_ghost_sound=False
             can_control=False
+
       
 class Scoreboard(Model):  
     #def __init__(self, x, y):
@@ -975,12 +1028,14 @@ class World:
 
 
 
-        self.sound_gameover = arcade.sound.load_sound('sound/gameover.wav')
+        self.sound_blood = arcade.sound.load_sound('sound/blood.wav')
+        self.sound_bomb = arcade.sound.load_sound('sound/bomb.wav')
         self.sound_jump = arcade.sound.load_sound('sound/jump.wav')
         self.sound_hok = arcade.sound.load_sound('sound/hok.wav')
-        #self.sound_monster = arcade.sound.load_sound('sound/monster.wav')
-        #self.sound_brick = arcade.sound.load_sound('sound/brick.wav')
+        self.sound_monster = arcade.sound.load_sound('sound/monster.wav')
+        self.sound_brick = arcade.sound.load_sound('sound/brick.wav')
         self.sound_bg = arcade.sound.load_sound('sound/bg.wav')
+        self.sound_open = arcade.sound.load_sound('sound/open.wav')
         
 
         
