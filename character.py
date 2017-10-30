@@ -446,13 +446,17 @@ class Hok_Move(Model):
 
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move.Check_performance():
             self.world.hok_move.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             '''
@@ -477,13 +481,17 @@ class Hok_Move2(Model):
 
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move2.Check_performance():
             self.world.hok_move2.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move2!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             self.world.hok_move2.Hok_Movement(2)   
@@ -499,13 +507,17 @@ class Hok_Move3(Model):
 
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move3.Check_performance():
             self.world.hok_move3.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move3!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             self.world.hok_move3.Hok_Movement(3)          
@@ -521,13 +533,17 @@ class Hok_Move4(Model):
 
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move4.Check_performance():
             self.world.hok_move4.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move4!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             self.world.hok_move4.Hok_Movement(4)   
@@ -543,13 +559,17 @@ class Hok_Move5(Model):
         
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move5.Check_performance():
             self.world.hok_move5.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move5!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             self.world.hok_move5.Hok_Movement(5)            
@@ -565,13 +585,17 @@ class Hok_Move6(Model):
         
     def update(self, delta):
                     #0
-        global can_control
+        global can_control,check_play_hok_sound
         if self.world.hok_move6.Check_performance():
             self.world.hok_move6.Move(0)
         if self.world.baby.hit(self,100,220):
             print("hit hok_move6!")
-            arcade.sound.play_sound(self.world.sound_hok)
             can_control=False
+            if check_play_hok_sound and not can_control:
+                arcade.sound.play_sound(self.world.sound_hok)
+                time.sleep(0.03)
+                arcade.sound.play_sound(self.world.sound_gameover)
+                check_play_hok_sound=False
        
         if(check_firsttime):
             self.world.hok_move6.Hok_Movement(6)            
