@@ -1048,7 +1048,7 @@ class World:
       
             count_time+=1 
             
-            if (count_time==1 or count_time%7200==0):
+            if (count_time==1 or count_time%2100==0): # เพลงแบลคกราวจบแล้วเล่นต่อ ประมาณ 36 วินาที
                 if can_control:
                     arcade.sound.play_sound(self.sound_bg)
             print(count_time)
