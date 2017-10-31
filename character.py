@@ -1031,7 +1031,6 @@ class World:
         if self.baby.touch_margin():
             print("touch margin!")
             can_control=False
-
         if(can_control):
             fixed_thing_velocity+= self.faster_interface()
             mod_hok_killblock-=5*self.faster_interface()
@@ -1040,7 +1039,6 @@ class World:
         global count_time
         if(count_time%900==0 and not self.score == 0):
             return 1
-               
         else:
              return 0
     def on_key_press(self, key, key_modifiers):
@@ -1069,7 +1067,6 @@ class World:
                 self.hok6.obstacle_random_performance()
             elif Random_Number == 7:
                 self.hok7.obstacle_random_performance()
-
 
             elif Random_Number == 8:
                 self.hok_move.obstacle_random_performance()
