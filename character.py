@@ -193,21 +193,20 @@ class Baby(Model):
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
         self.world = world
-        
+
         self.x = x
         self.y = y
-       
  
     def update(self, delta):
-        global I,T,Insert_key,check_firsttime,can_control,check_play_open_sound
+        global I,T,Insert_key,check_firsttime,can_control,check_play_open_sound,Insert_key_time
         if(self.x<150):
             self.x+=3
+            if(self.x>=150):
+                can_control=True
             if check_play_open_sound:
                 arcade.sound.play_sound(self.world.sound_open)
                 check_play_open_sound=False
-            if(self.x>=150):
-
-                can_control=True
+            
         print(Insert_key,check_firsttime)
         if(Insert_key and check_firsttime):#JUMP
             I=0
@@ -215,26 +214,17 @@ class Baby(Model):
             T+=0.2
             if(T>4):
                 Insert_key=False
-            
-         
+
         elif(not Insert_key and check_firsttime):#DOWN
-            T=0
+            T=0.3
             self.y-=(I*I)
             I+=0.1
-            
-
          #firsttime_key เอา ไว้เช็คการกดครั้งแรกเพื่อให้เบบี้เริ่มขยับ
-        
-        
-
-       
-            
-
+         
 class Block(Model):  #fixed_thing
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
         self.world = world
-        
         self.x = x
         self.y = y
  
@@ -257,8 +247,6 @@ class Block_Cont(Model):  #fixed_thing
         if check_firsttime:
             self.x-=fixed_thing_velocity
  
-           
-
 class Blood(Model): #fixed_thing  ทำลูกคลื่นถ้ามีเวลาว่าง ขยับได้
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -295,8 +283,7 @@ class Hok(Model):
         self.x = x
         self.y = y
         self.check_inwindow =False
-        
- 
+
     def update(self, delta):
         global can_control,check_firsttime,check_play_hok_sound
         if self.world.hok.Check_performance():
@@ -307,17 +294,15 @@ class Hok(Model):
                 arcade.sound.play_sound(self.world.sound_hok)
                 check_play_hok_sound=False
             can_control=False
-            
 
 class Hok2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
         self.world = world
-        
+
         self.x = x
         self.y = y
         self.check_inwindow =False
-        
  
     def update(self, delta):
         global can_control,check_play_hok_sound
@@ -329,17 +314,16 @@ class Hok2(Model):
                 arcade.sound.play_sound(self.world.sound_hok)
                 check_play_hok_sound=False
             can_control=False
-            
+
 class Hok3(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
         self.world = world
-        
+
         self.x = x
         self.y = y
         self.check_inwindow =False
-        
- 
+
     def update(self, delta):
         global can_control,check_play_hok_sound
         if self.world.hok3.Check_performance():
@@ -359,8 +343,8 @@ class Hok4(Model):
         self.x = x
         self.y = y
         self.check_inwindow =False
-        
- 
+
+
     def update(self, delta):
         global can_control,check_play_hok_sound
         if self.world.hok4.Check_performance():
@@ -978,6 +962,7 @@ class World:
  
         #self.baby = Baby(250,300)  function นี้ เราเพิ่มworld เข้าไปเปนพารามิเตอร์อีกตัวแล้ว เลยต้องมาแก้
         self.baby = Baby(self,-20,355)
+
         self.block = Block(self,641,460)
         self.block_cont = Block_Cont(self,1920,460)
         self.blood = Blood(self,641,355)
@@ -1042,7 +1027,10 @@ class World:
  
  
     def update(self, delta):
-        global can_control,count_time,check_firsttime,fixed_thing_velocity,mod_hok_killblock,mod_ghost,check_play_fly_sound
+        global can_control,count_time,check_firsttime,fixed_thing_velocity,mod_hok_killblock,mod_ghost,check_play_fly_sound,Insert_key
+        #if Insert_key:
+        #   self.babyfly = self.baby
+        
         if check_firsttime and can_control:
         #if check_firsttime:
       
@@ -1061,6 +1049,7 @@ class World:
             check_play_fly_sound=False
             
         self.baby.update(delta)
+
         self.block.update(delta)
         self.block_cont.update(delta)
         self.blood.update(delta)
@@ -1117,7 +1106,7 @@ class World:
             fixed_thing_velocity+= self.faster_interface()
             mod_hok_killblock-=5*self.faster_interface()
             mod_ghost-=self.faster_interface()
-   
+
     def faster_interface(self):
         global count_time
         if(count_time%900==0 and not self.score == 0):

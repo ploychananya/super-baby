@@ -6,22 +6,16 @@ import character
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 check_play_gameover_sound = True
-
 I=0
 T=5
 
-
- 
 class SpaceGameWindow(arcade.Window):
     check_firsttime=False
     Insert_key=False
     def __init__(self, width, height):
         super().__init__(width, height)
- 
-        #arcade.set_background_color(arcade.color.BLACK)
         self.background = arcade.load_texture("character/hell.jpg")
-        
-        #self.baby = arcade.Sprite('character/babyfly1.png',0.23)
+
         self.baby_sprite = arcade.Sprite('character/babyfly1.png',0.15)
 
         self.block_sprite = arcade.Sprite('character/fixblock.png',1)
@@ -67,22 +61,13 @@ class SpaceGameWindow(arcade.Window):
 
         self.scoreboard_sprite = arcade.Sprite('character/scoreboard.png',0.5)
         self.sound_gameover = arcade.sound.load_sound('sound/gameover.wav')
-        
-        
-     
-        
-        #self.baby.set_position(250, 300)
-        #self.baby = Baby(250,300)  ย้ายไปไว้ใน WORLD แทน
-        self.world = World(width, height)
 
+        self.world = World(width, height)
  
     def on_draw(self):
         arcade.start_render()
         global check_play_gameover_sound
-        #self.baby.draw()
-        
-        arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
-        
+        arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,SCREEN_WIDTH, SCREEN_HEIGHT, self.background)        
         self.baby_sprite.draw()
 
         self.block_sprite.draw()
@@ -132,7 +117,9 @@ class SpaceGameWindow(arcade.Window):
         arcade.draw_text(self.world.txt,50, 680,arcade.color.WHITE, 25)
 
         if character.check_firsttime and not character.can_control:
-            arcade.draw_text(str(self.world.score),595, 355,arcade.color.RED, 40)  
+            arcade.draw_text(str(self.world.score),595, 355,arcade.color.RED, 40)
+        if not character.check_firsttime:
+            arcade.draw_text("PRESS SPACE BAR TO JUMP",450,400,arcade.color.WHITE,40)
             #if check_play_gameover_sound:
                # arcade.sound.play_sound(self.sound_gameover)
                # check_play_gameover_sound=False
@@ -144,10 +131,17 @@ class SpaceGameWindow(arcade.Window):
         #if character.check_firsttime and not character.can_control:
          #   arcade.sound.play_sound(self.sound_bg)
         #self.baby.update(delta) ย้ายไปไว้ใน World too ! เรียกเวิลเเทน
+        
+        if character.Insert_key and character.check_firsttime:
+            self.baby_sprite = arcade.Sprite('character/babyfly2.png',0.15)
+        elif not character.Insert_key and character.check_firsttime:
+            self.baby_sprite = arcade.Sprite('character/babyfly1.png',0.15)
+
         self.world.update(60)
 
         #self.baby_sprite.set_position(self.baby.x, self.baby.y)  #บอกว่ารูปเบบี๋นี้อยู่ในโพสสิชั่นที่อยากให้เบบี้ยุนะ  ลิ้งระหว่างsprite กับ สถานะ  ต่อไปนี้ต้องอ้าง shipจากเวิลเเล้ว
         self.baby_sprite.set_position(self.world.baby.x, self.world.baby.y)    # x,y in baby in world
+ 
         #arcade.sound.play_sound(self.bg_music)
         #margin
         self.block_sprite.set_position(self.world.block.x, self.world.block.y)
