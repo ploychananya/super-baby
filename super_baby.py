@@ -120,18 +120,8 @@ class SpaceGameWindow(arcade.Window):
             arcade.draw_text(str(self.world.score),595, 355,arcade.color.RED, 40)
         if not character.check_firsttime:
             arcade.draw_text("PRESS SPACE BAR TO JUMP",450,400,arcade.color.WHITE,40)
-            #if check_play_gameover_sound:
-               # arcade.sound.play_sound(self.sound_gameover)
-               # check_play_gameover_sound=False
-            
+       
     def update(self, delta):
-        #self.baby.set_position(self.baby.center_x+5, self.baby.center_y)
-        #if(self.baby.center_x > SCREEN_WIDTH):
-        #    self.baby.center_x = 0
-        #if character.check_firsttime and not character.can_control:
-         #   arcade.sound.play_sound(self.sound_bg)
-        #self.baby.update(delta) ย้ายไปไว้ใน World too ! เรียกเวิลเเทน
-        
         if character.Insert_key and character.check_firsttime:
             self.baby_sprite = arcade.Sprite('character/babyfly2.png',0.15)
         elif not character.Insert_key and character.check_firsttime:
@@ -139,11 +129,8 @@ class SpaceGameWindow(arcade.Window):
 
         self.world.update(60)
 
-        #self.baby_sprite.set_position(self.baby.x, self.baby.y)  #บอกว่ารูปเบบี๋นี้อยู่ในโพสสิชั่นที่อยากให้เบบี้ยุนะ  ลิ้งระหว่างsprite กับ สถานะ  ต่อไปนี้ต้องอ้าง shipจากเวิลเเล้ว
         self.baby_sprite.set_position(self.world.baby.x, self.world.baby.y)    # x,y in baby in world
  
-        #arcade.sound.play_sound(self.bg_music)
-        #margin
         self.block_sprite.set_position(self.world.block.x, self.world.block.y)
         self.block_cont_sprite.set_position(self.world.block_cont.x, self.world.block_cont.y)
         self.blood_sprite.set_position(self.world.blood.x, self.world.blood.y) 
@@ -178,7 +165,6 @@ class SpaceGameWindow(arcade.Window):
         self.killblock_two5_sprite.set_position(self.world.killblock_two5.x, self.world.killblock_two5.y)
         self.killblock_two6_sprite.set_position(self.world.killblock_two6.x, self.world.killblock_two6.y)
                 
-
         self.bomb_sprite.set_position(self.world.bomb.x, self.world.bomb.y)
         self.bomb2_sprite.set_position(self.world.bomb2.x, self.world.bomb2.y)
         self.bomb3_sprite.set_position(self.world.bomb3.x, self.world.bomb3.y)
@@ -188,13 +174,9 @@ class SpaceGameWindow(arcade.Window):
         
         self.scoreboard_sprite.set_position(self.world.scoreboard.x, self.world.scoreboard.y)
       
-    
-
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
-    
- 
 if __name__ == '__main__':
     window = SpaceGameWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
