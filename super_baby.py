@@ -119,7 +119,7 @@ class SpaceGameWindow(arcade.Window):
         if character.check_firsttime and not character.can_control:
             arcade.draw_text(str(self.world.score),595, 355,arcade.color.RED, 40)
         if not character.check_firsttime:
-            arcade.draw_text("PRESS SPACE BAR TO JUMP",450,400,arcade.color.WHITE,40)
+            arcade.draw_text("\"PRESS SPACE BAR TO JUMP\"",450,400,arcade.color.WHITE,40)
        
     def update(self, delta):
         if character.Insert_key and character.check_firsttime:
