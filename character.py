@@ -28,8 +28,8 @@ check_firsttime=False
 check_inwindow=False
 Insert_key=False
 can_control=False
-I=0
-T=2
+jump_down=0
+jump_up=2
 count_time=0
 class Model:
     def __init__(self, world, x, y):
@@ -168,7 +168,7 @@ class Baby(Model):
         self.y = y
  
     def update(self, delta):
-        global I,T,Insert_key,check_firsttime,can_control,check_play_open_sound,Insert_key_time
+        global jump_up,jump_down,Insert_key,check_firsttime,can_control,check_play_open_sound,Insert_key_time
         if(self.x<150):
             self.x+=3
             if(self.x>=150):
@@ -179,16 +179,16 @@ class Baby(Model):
             
         print(Insert_key,check_firsttime)
         if(Insert_key and check_firsttime):#JUMP
-            I=0
-            self.y+=(T*T)
-            T+=0.2
-            if(T>4):
+            jump_down=0
+            self.y+=(jump_up*jump_up)
+            jump_up+=0.2
+            if(jump_up>4):
                 Insert_key=False
 
         elif(not Insert_key and check_firsttime):#DOWN
-            T=0.3
-            self.y-=(I*I)
-            I+=0.1
+            jump_up=0.3
+            self.y-=(jump_down*jump_down)
+            jump_down+=0.1
          #firsttime_key เอา ไว้เช็คการกดครั้งแรกเพื่อให้เบบี้เริ่มขยับ
          
 class Block(Model):  #fixed_thing
