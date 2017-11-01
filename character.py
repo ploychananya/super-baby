@@ -1084,52 +1084,54 @@ class World:
                 print("cannot perform HOK!")
 
     def Random_Perform_Killblock_bomb(self):
-        global count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
+        global can_control,count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
         if (count_time%mod_hok_killblock==0 and check_firsttime):
-            Random_Number = randint(0,20)  #0 = emty
-            print("Can Random")
-            if Random_Number == 1:
-                self.killblock_one.obstacle_random_performance()
-            elif Random_Number == 2:
-                self.killblock_one2.obstacle_random_performance()
-            elif Random_Number == 3:
-                self.killblock_one3.obstacle_random_performance()
-            elif Random_Number == 4:
-                self.killblock_one4.obstacle_random_performance()
-            elif Random_Number == 5:
-                self.killblock_one5.obstacle_random_performance()
-            elif Random_Number == 6:
-                self.killblock_one6.obstacle_random_performance()
+            if(can_control):
+                Random_Number = randint(0,20)  #0 = emty
+                print("Can Random")
+                if Random_Number == 1:
+                    self.killblock_one.obstacle_random_performance()
+                elif Random_Number == 2:
+                    self.killblock_one2.obstacle_random_performance()
+                elif Random_Number == 3:
+                    self.killblock_one3.obstacle_random_performance()
+                elif Random_Number == 4:
+                    self.killblock_one4.obstacle_random_performance()
+                elif Random_Number == 5:
+                    self.killblock_one5.obstacle_random_performance()
+                elif Random_Number == 6:
+                    self.killblock_one6.obstacle_random_performance()
 
-            elif Random_Number == 7:
-                self.killblock_two.obstacle_random_performance()
-            elif Random_Number == 8:
-                self.killblock_two2.obstacle_random_performance()
-            elif Random_Number == 9:
-                self.killblock_two3.obstacle_random_performance()
-            elif Random_Number == 10:
-                self.killblock_two4.obstacle_random_performance()
-            elif Random_Number == 11:
-                self.killblock_two5.obstacle_random_performance()
-            elif Random_Number == 12:
-                self.killblock_two6.obstacle_random_performance()
+                elif Random_Number == 7:
+                    self.killblock_two.obstacle_random_performance()
+                elif Random_Number == 8:
+                    self.killblock_two2.obstacle_random_performance()
+                elif Random_Number == 9:
+                    self.killblock_two3.obstacle_random_performance()
+                elif Random_Number == 10:
+                    self.killblock_two4.obstacle_random_performance()
+                elif Random_Number == 11:
+                    self.killblock_two5.obstacle_random_performance()
+                elif Random_Number == 12:
+                    self.killblock_two6.obstacle_random_performance()
 
-            elif Random_Number == 13:
-                self.bomb.obstacle_random_performance()
-            elif Random_Number == 14:
-                self.bomb2.obstacle_random_performance()
-            elif Random_Number == 15:
-                self.bomb3.obstacle_random_performance()
-            else:
-                print("cannot perform killblock or bomb!")
+                elif Random_Number == 13:
+                    self.bomb.obstacle_random_performance()
+                elif Random_Number == 14:
+                    self.bomb2.obstacle_random_performance()
+                elif Random_Number == 15:
+                    self.bomb3.obstacle_random_performance()
+                else:
+                    print("cannot perform killblock or bomb!")
     def Random_Perform_Ghost(self):
-        global count_time,check_firsttime,mod_ghost# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
+        global can_control,count_time,check_firsttime,mod_ghost# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
         if (count_time%mod_ghost==0 and check_firsttime):
-            Random_Number = randint(0,5)  #0 = emty
-            print("Can Random")
-            if Random_Number == 1:
-                self.ghost.obstacle_random_performance()
-            elif Random_Number == 2:
-                self.ghost_two.obstacle_random_performance()
-            else:
-                print("cannot perform GHOST!")
+             if(can_control):
+                Random_Number = randint(0,5)  #0 = emty
+                print("Can Random")
+                if Random_Number == 1:
+                    self.ghost.obstacle_random_performance()
+                elif Random_Number == 2:
+                    self.ghost_two.obstacle_random_performance()
+                else:
+                    print("cannot perform GHOST!")
