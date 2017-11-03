@@ -6,8 +6,6 @@ import character
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 check_play_gameover_sound = True
-I=0
-T=5
 
 class SpaceGameWindow(arcade.Window):
     check_firsttime=False
