@@ -2,7 +2,7 @@ import arcade.key
 import arcade.sound
 from character import *
 import character
- 
+ #what wrong
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 check_play_gameover_sound = True
