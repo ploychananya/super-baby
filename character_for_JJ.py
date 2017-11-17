@@ -43,15 +43,7 @@ class Model:
     def touch_margin(self):
         global check_play_margin_sound,can_control
         if self.y>620 or self.y<90 :
-            if can_control and check_play_margin_sound:
-                if self.y>620:
-                    arcade.sound.play_sound(self.world.sound_brick)
-                    check_play_margin_sound=False
-                elif self.y<90:
-                    arcade.sound.play_sound(self.world.sound_blood)
-                    check_play_margin_sound=False
-            return True
-
+            
     def fixed_thing_move(self,specify):
         global fixed_thing_velocity,check_firsttime
         if check_firsttime:
@@ -174,9 +166,7 @@ class Baby(Model):
             self.x+=3
             if(self.x>=150):
                 can_control=True
-            if check_play_open_sound:
-                arcade.sound.play_sound(self.world.sound_open)
-                check_play_open_sound=False
+           
             
         print(Insert_key,check_firsttime)
         if(Insert_key and check_firsttime):#JUMP
@@ -284,10 +274,7 @@ class Hok(Model):
             self.world.hok7.Move(1/7)
         if self.world.baby.hit(self,120,100):
             print("hit hok!")
-            if check_play_hok_sound and  can_control:
-                arcade.sound.play_sound(self.world.sound_hok)
-                check_play_hok_sound=False
-            can_control=False
+           
 '''
 class Hok2(Model):  
     #def __init__(self, x, y):
@@ -439,10 +426,7 @@ class Hok_Move(Model):
 
         if self.world.baby.hit(self,100,220):
             print("hit hok_move!")
-            if check_play_hok_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_hok)
-                check_play_hok_sound=False
-            can_control=False
+        
        
         if(check_firsttime):
             self.world.hok_move.Hok_Movement(1)
@@ -601,10 +585,7 @@ class Killblock_One(Model):
 
         if self.world.baby.hit(self,100,70):
             print("hit kill 1!")
-            if check_play_brick_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_brick)
-                check_play_brick_sound=False
-            can_control=False
+        
 '''
 class Killblock_One2(Model):  
     #def __init__(self, x, y):
@@ -735,10 +716,7 @@ class Killblock_Two(Model):
         
         if self.world.baby.hit(self,100,70):
             print("hit kill 2!")
-            if check_play_brick_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_brick)
-                check_play_brick_sound=False
-            can_control=False
+        
 '''
 class Killblock_Two2(Model):  
     #def __init__(self, x, y):
@@ -860,11 +838,7 @@ class Bomb(Model):
         
         if self.world.baby.hit(self,100,50):
             print("hit BOMB!")
-            if check_play_bomb_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_bomb)
-                check_play_bomb_sound=False
-            can_control=False
-'''
+'''       
 class Bomb2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -926,10 +900,7 @@ class Ghost(Model):
 
         if self.world.baby.hit(self,70,50):
             print("hit ghost 1!")
-            if check_play_ghost_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_monster)
-                check_play_ghost_sound=False
-            can_control=False
+
 
 class Ghost_Two(Model):  
     #def __init__(self, x, y):
@@ -951,10 +922,7 @@ class Ghost_Two(Model):
         
         if self.world.baby.hit(self,70,50):
             print("hit ghost 2!")
-            if check_play_ghost_sound and can_control:
-                arcade.sound.play_sound(self.world.sound_monster)
-                check_play_ghost_sound=False
-            can_control=False
+
 
 class Scoreboard(Model):  
     #def __init__(self, x, y):
@@ -1024,30 +992,10 @@ class World:
         self.txt = "Score :"
         self.score = 0
 
-        self.sound_blood = arcade.sound.load_sound('sound/blood.wav')
-        self.sound_bomb = arcade.sound.load_sound('sound/bomb.wav')
-        self.sound_jump = arcade.sound.load_sound('sound/jump.wav')
-        self.sound_hok = arcade.sound.load_sound('sound/hok.wav')
-        self.sound_monster = arcade.sound.load_sound('sound/monster.wav')
-        self.sound_brick = arcade.sound.load_sound('sound/brick.wav')
-        self.sound_bg = arcade.sound.load_sound('sound/bg.wav')
-        self.sound_open = arcade.sound.load_sound('sound/open.wav')
 
     def update(self, delta):
         global can_control,count_time,check_firsttime,fixed_thing_velocity,mod_hok_killblock,mod_ghost,check_play_fly_sound,Insert_key
-        if check_firsttime and can_control:
-            count_time+=1 
-            if (count_time==1 or count_time%2100==0): # เพลงแบลคกราวจบแล้วเล่นต่อ ประมาณ 36 วินาที
-                if can_control:
-                    arcade.sound.play_sound(self.sound_bg)
-            print(count_time)
-            if(count_time%60==0 and can_control):
-                self.score+=1
-                print("Score : ")
-                print(self.score)
-        if check_play_fly_sound:
-            arcade.sound.play_sound(self.sound_jump)
-            check_play_fly_sound=False
+   
             
         self.baby.update(delta)
 
