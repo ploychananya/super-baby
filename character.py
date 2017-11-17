@@ -20,8 +20,8 @@ count_ghost_move = 0
 count_ghost2_move = 0
 check_state_ghost=False
 check_state_ghost2=False
-fixed_thing_velocity = 2
-mod_hok_killblock=60
+fixed_thing_velocity = 0.5
+mod_hok_killblock=30
 mod_ghost=30
 #Monster_velocity = 3
 check_firsttime=False
@@ -92,56 +92,56 @@ class Model:
         global count_hok_move,count_hok_move2,count_hok_move3,count_hok_move4,count_hok_move5,count_hok_move6
         if specify ==1 :    
             if count_hok_move%2==0:
-                self.y+=8
+                self.y+=3
                 if self.y >=170:
                     count_hok_move+=1
             elif count_hok_move%2==1:
-                self.y-=3
+                self.y-=1
                 if(self.y<=-200):
                     count_hok_move+=1    
         elif specify ==2 :    
             if count_hok_move2%2==0:
-                self.y+=8
+                self.y+=2
                 if self.y >=140:
                     count_hok_move2+=1
             elif count_hok_move2%2==1:
-                self.y-=3
+                self.y-=0.5
                 if(self.y<=-200):
                     count_hok_move2+=1     
         elif specify ==3 :    
             if count_hok_move3%2==0:
-                self.y+=8
+                self.y+=2.5
                 if self.y >=150:
                     count_hok_move3+=1
             elif count_hok_move3%2==1:
-                self.y-=3
+                self.y-=1.5
                 if(self.y<=-200):
                     count_hok_move3+=1    
         elif specify ==4 :    
             if count_hok_move4%2==0:
-                self.y+=8
+                self.y+=1
                 if self.y >=130:
                     count_hok_move4+=1
             elif count_hok_move4%2==1:
-                self.y-=3
+                self.y-=2
                 if(self.y<=-200):
                     count_hok_move4+=1    
         elif specify ==5 :    
             if count_hok_move5%2==0:
-                self.y+=8
+                self.y+=2
                 if self.y >=90:
                     count_hok_move5+=1
             elif count_hok_move5%2==1:
-                self.y-=3
+                self.y-=1
                 if(self.y<=-200):
                     count_hok_move5+=1    
         elif specify ==6 :    
             if count_hok_move6%2==0:
-                self.y+=8
+                self.y+=3
                 if self.y >=100:
                     count_hok_move6+=1
             elif count_hok_move6%2==1:
-                self.y-=3
+                self.y-=2
                 if(self.y<=-200):
                     count_hok_move6+=1     
     def Check_performance(self):
@@ -258,13 +258,25 @@ class Hok(Model):
         global can_control,check_firsttime,check_play_hok_sound
         if self.world.hok.Check_performance():
             self.world.hok.Move(0)
+        if self.world.hok2.Check_performance():
+            self.world.hok2.Move(0)
+        if self.world.hok3.Check_performance():
+            self.world.hok3.Move(0)
+        if self.world.hok4.Check_performance():
+            self.world.hok4.Move(0)
+        if self.world.hok5.Check_performance():
+            self.world.hok5.Move(0)
+        if self.world.hok6.Check_performance():
+            self.world.hok6.Move(0)
+        if self.world.hok7.Check_performance():
+            self.world.hok7.Move(0)
         if self.world.baby.hit(self,120,100):
             print("hit hok!")
             if check_play_hok_sound and  can_control:
                 arcade.sound.play_sound(self.world.sound_hok)
                 check_play_hok_sound=False
             can_control=False
-
+'''
 class Hok2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -386,7 +398,7 @@ class Hok7(Model):
                 arcade.sound.play_sound(self.world.sound_hok)
                 check_play_hok_sound=False
             can_control=False
-          
+'''         
 class Hok_Move(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -401,6 +413,18 @@ class Hok_Move(Model):
         global can_control,check_play_hok_sound
         if self.world.hok_move.Check_performance():
             self.world.hok_move.Move(0)
+        if self.world.hok_move2.Check_performance():
+            self.world.hok_move2.Move(0)
+        if self.world.hok_move3.Check_performance():
+            self.world.hok_move3.Move(0)
+        if self.world.hok_move4.Check_performance():
+            self.world.hok_move4.Move(0)
+        if self.world.hok_move5.Check_performance():
+            self.world.hok_move5.Move(0)
+        if self.world.hok_move6.Check_performance():
+            self.world.hok_move6.Move(0)
+        
+
         if self.world.baby.hit(self,100,220):
             print("hit hok_move!")
             if check_play_hok_sound and can_control:
@@ -409,8 +433,14 @@ class Hok_Move(Model):
             can_control=False
        
         if(check_firsttime):
-            self.world.hok_move.Hok_Movement(1)    
-
+            self.world.hok_move.Hok_Movement(1)
+            self.world.hok_move2.Hok_Movement(2)
+            self.world.hok_move3.Hok_Movement(3)
+            self.world.hok_move4.Hok_Movement(4)
+            self.world.hok_move5.Hok_Movement(5)
+            self.world.hok_move6.Hok_Movement(6)
+   
+'''
 class Hok_Move2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -530,7 +560,8 @@ class Hok_Move6(Model):
             
        
         if(check_firsttime):
-            self.world.hok_move6.Hok_Movement(6)            
+            self.world.hok_move6.Hok_Movement(6)   
+'''         
 
 class Killblock_One(Model):  
     #def __init__(self, x, y):
@@ -914,19 +945,19 @@ class World:
         self.blood_cont = Blood_Cont(self,1920,355)
 
         self.hok = Hok(self,1700,100)
-        self.hok2 = Hok2(self,1700,100)
-        self.hok3 = Hok3(self,1700,100)
-        self.hok4 = Hok4(self,1700,100)
-        self.hok5 = Hok5(self,1700,100)
-        self.hok6 = Hok6(self,1700,100)
-        self.hok7 = Hok7(self,1700,100)
+        self.hok2 = Hok(self,1700,100)
+        self.hok3 = Hok(self,1700,100)
+        self.hok4 = Hok(self,1700,100)
+        self.hok5 = Hok(self,1700,100)
+        self.hok6 = Hok(self,1700,100)
+        self.hok7 = Hok(self,1700,100)
 
         self.hok_move = Hok_Move(self,1700,-200)
-        self.hok_move2 = Hok_Move2(self,1700,-200)
-        self.hok_move3 = Hok_Move3(self,1700,-200)
-        self.hok_move4 = Hok_Move4(self,1700,-200)
-        self.hok_move5 = Hok_Move5(self,1700,-200)
-        self.hok_move6 = Hok_Move6(self,1700,-200)
+        self.hok_move2 = Hok_Move(self,1700,-200)
+        self.hok_move3 = Hok_Move(self,1700,-200)
+        self.hok_move4 = Hok_Move(self,1700,-200)
+        self.hok_move5 = Hok_Move(self,1700,-200)
+        self.hok_move6 = Hok_Move(self,1700,-200)
 
         self.killblock_one = Killblock_One(self,1600,579)
         self.killblock_one2 = Killblock_One2(self,1600,579)
@@ -1037,7 +1068,7 @@ class World:
             mod_ghost-=self.faster_interface()
     def faster_interface(self):
         global count_time
-        if(count_time%900==0 and not self.score == 0):
+        if(count_time%900==0 and not self.score <= 1):
             return 1
         else:
              return 0
