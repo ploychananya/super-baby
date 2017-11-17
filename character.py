@@ -20,7 +20,7 @@ count_ghost_move = 0
 count_ghost2_move = 0
 check_state_ghost=False
 check_state_ghost2=False
-fixed_thing_velocity = 0.5
+fixed_thing_velocity = 1
 mod_hok_killblock=30
 mod_ghost=30
 #Monster_velocity = 3
@@ -57,21 +57,22 @@ class Model:
         if check_firsttime:
             if specify ==1:
                 if self.world.block.x-640 <=0:
-                    self.world.block_cont.x=self.world.block.x+640
-                if self.world.block_cont.x-640 <=0:
-                    self.world.block.x=self.world.block_cont.x+640
+                    self.world.block2.x=self.world.block.x+640
+                if self.world.block2.x-640 <=0:
+                    self.world.block.x=self.world.block2.x+640
             elif specify ==2:
                 if self.world.blood.x-640 <=0:
-                    self.world.blood_cont.x=self.world.blood.x+640
-                if self.world.blood_cont.x-640 <=0:
-                    self.world.blood.x=self.world.blood_cont.x+640
+                    self.world.blood2.x=self.world.blood.x+640
+                if self.world.blood2.x-640 <=0:
+                    self.world.blood.x=self.world.blood2.x+640
     def Move(self,extra_velocity):
         global fixed_thing_velocity
-        velocity=fixed_thing_velocity+extra_velocity
-        if(self.x<-100):
-            self.x=self.world.width+400
-        if check_firsttime:
-            self.x -= velocity
+        #velocity= (fixed_thing_velocity+extra_velocity)
+        #if(self.x<-100):
+        #    self.x=self.world.width+400
+        if self.check_inwindow and check_firsttime:
+            #self.x -= velocity
+            self.x -= fixed_thing_velocity
     def Monster_Movement(self,specify):
         global count_time,check_state_ghost,check_state_ghost2
         if specify==1:
@@ -197,13 +198,18 @@ class Block(Model):  #fixed_thing
         self.world = world
         self.x = x
         self.y = y
+        self.check_inwindow =True
  
     def update(self, delta):
         global fixed_thing_velocity,check_firsttime
         self.world.block.fixed_thing_move(1)
+        self.world.block2.fixed_thing_move(1)
         if check_firsttime:
-            self.x-=fixed_thing_velocity
+            #self.x-=fixed_thing_velocity
+            self.world.block.Move(0)
+            self.world.block2.Move(0)
 
+'''
 class Block_Cont(Model):  #fixed_thing
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -216,7 +222,7 @@ class Block_Cont(Model):  #fixed_thing
         self.world.block.fixed_thing_move(1)
         if check_firsttime:
             self.x-=fixed_thing_velocity
- 
+'''
 class Blood(Model): #fixed_thing  ทำลูกคลื่นถ้ามีเวลาว่าง ขยับได้
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -224,13 +230,17 @@ class Blood(Model): #fixed_thing  ทำลูกคลื่นถ้ามี�
         
         self.x = x
         self.y = y
+        self.check_inwindow =True
  
     def update(self, delta):
         global fixed_thing_velocity,check_firsttime
-        self.world.block.fixed_thing_move(2)
+        self.world.blood.fixed_thing_move(2)
+        self.world.blood2.fixed_thing_move(2)
         if check_firsttime:
-            self.x-=fixed_thing_velocity
-        
+            #self.x-=fixed_thing_velocity
+            self.world.blood.Move(0)
+            self.world.blood2.Move(0)
+'''        
 class Blood_Cont(Model):  #fixed_thing
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -244,7 +254,7 @@ class Blood_Cont(Model):  #fixed_thing
         self.world.block.fixed_thing_move(2)
         if check_firsttime:
             self.x-=fixed_thing_velocity
-
+'''
 class Hok(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -710,6 +720,17 @@ class Killblock_Two(Model):
         global can_control,check_play_brick_sound
         if self.world.killblock_two.Check_performance():
             self.world.killblock_two.Move(0)
+        if self.world.killblock_two2.Check_performance():
+            self.world.killblock_two2.Move(0)
+        if self.world.killblock_two3.Check_performance():
+            self.world.killblock_two3.Move(0)
+        if self.world.killblock_two4.Check_performance():
+            self.world.killblock_two4.Move(0)
+        if self.world.killblock_two5.Check_performance():
+            self.world.killblock_two5.Move(0)
+        if self.world.killblock_two6.Check_performance():
+            self.world.killblock_two6.Move(0)
+        
         if self.world.baby.hit(self,100,70):
             print("hit kill 2!")
             if check_play_brick_sound and can_control:
@@ -830,13 +851,18 @@ class Bomb(Model):
         global can_control,check_play_bomb_sound
         if self.world.bomb.Check_performance():
             self.world.bomb.Move(0)
+        if self.world.bomb2.Check_performance():
+            self.world.bomb2.Move(0)
+        if self.world.bomb3.Check_performance():
+            self.world.bomb3.Move(0)
+        
         if self.world.baby.hit(self,100,50):
             print("hit BOMB!")
             if check_play_bomb_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_bomb)
                 check_play_bomb_sound=False
             can_control=False
-
+'''
 class Bomb2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -876,7 +902,7 @@ class Bomb3(Model):
                 arcade.sound.play_sound(self.world.sound_bomb)
                 check_play_bomb_sound=False
             can_control=False
-
+'''
 class Ghost(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -951,9 +977,9 @@ class World:
         self.baby = Baby(self,-20,355)
 
         self.block = Block(self,641,460)
-        self.block_cont = Block_Cont(self,1920,460)
+        self.block2 = Block(self,1920,460)
         self.blood = Blood(self,641,355)
-        self.blood_cont = Blood_Cont(self,1920,355)
+        self.blood2 = Blood(self,1920,355)
 
         self.hok = Hok(self,1700,100)
         self.hok2 = Hok(self,1700,100)
@@ -985,8 +1011,8 @@ class World:
         self.killblock_two6 = Killblock_Two(self,1600,579)
 
         self.bomb = Bomb(self,2000,602)
-        self.bomb2 = Bomb2(self,2000,602)
-        self.bomb3 = Bomb3(self,2000,602)
+        self.bomb2 = Bomb(self,2000,602)
+        self.bomb3 = Bomb(self,2000,602)
 
         self.ghost = Ghost(self,1600,355)
         self.ghost_two = Ghost_Two(self,1600,400)
@@ -1024,9 +1050,9 @@ class World:
         self.baby.update(delta)
 
         self.block.update(delta)
-        self.block_cont.update(delta)
+        self.block2.update(delta)
         self.blood.update(delta)
-        self.blood_cont.update(delta)
+        self.blood2.update(delta)
 
         self.hok.update(delta)
         self.hok2.update(delta)
@@ -1067,6 +1093,7 @@ class World:
         self.scoreboard.update(delta)
 
         self.Random_Perform_Hok()
+        self.Random_Perform_Hok_Move()
         self.Random_Perform_Killblock_bomb()
         self.Random_Perform_Ghost()
 
@@ -1075,12 +1102,12 @@ class World:
             can_control=False
         if(can_control):
             fixed_thing_velocity+= self.faster_interface()
-            mod_hok_killblock-=5*self.faster_interface()
+            mod_hok_killblock-=2*self.faster_interface()
             mod_ghost-=self.faster_interface()
     def faster_interface(self):
         global count_time
         if(count_time%900==0 and not self.score <= 1):
-            return 1
+            return 0.5
         else:
              return 0
     def on_key_press(self, key, key_modifiers):
@@ -1091,9 +1118,9 @@ class World:
             Insert_key=True 
             check_play_fly_sound=True
     def Random_Perform_Hok(self):
-        global count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
+        global count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 1 วิ ค่อยสุ่มใหม่
         if (count_time%mod_hok_killblock==0 and check_firsttime):
-            Random_Number = randint(0,17)  #0 = emty
+            Random_Number = randint(0,7)  #0 = emty
             print("Can Random")
             if Random_Number == 1:
                 self.hok.obstacle_random_performance()
@@ -1109,22 +1136,29 @@ class World:
                 self.hok6.obstacle_random_performance()
             elif Random_Number == 7:
                 self.hok7.obstacle_random_performance()
-
-            elif Random_Number == 8:
-                self.hok_move.obstacle_random_performance()
-            elif Random_Number == 9:
-                self.hok_move2.obstacle_random_performance()
-            elif Random_Number == 10:
-                self.hok_move3.obstacle_random_performance()
-            elif Random_Number == 11:
-                self.hok_move4.obstacle_random_performance()
-            elif Random_Number == 12:
-                self.hok_move5.obstacle_random_performance()
-            elif Random_Number == 13:
-                self.hok_move6.obstacle_random_performance()
             else:
                 print("cannot perform HOK!")
 
+    def Random_Perform_Hok_Move(self):
+        global count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 1 วิ ค่อยสุ่มใหม่
+        if (count_time%mod_hok_killblock==0 and check_firsttime):
+            Random_Number = randint(0,7)  #0 = emty
+            print("Can Random")
+            if Random_Number == 0:
+                self.hok_move.obstacle_random_performance()
+            elif Random_Number == 1:
+                self.hok_move2.obstacle_random_performance()
+            elif Random_Number == 2:
+                self.hok_move3.obstacle_random_performance()
+            elif Random_Number == 3:
+                self.hok_move4.obstacle_random_performance()
+            elif Random_Number == 4:
+                self.hok_move5.obstacle_random_performance()
+            elif Random_Number == 5:
+                self.hok_move6.obstacle_random_performance()
+            else:
+                print("cannot perform HOK_MOVE!")
+    
     def Random_Perform_Killblock_bomb(self):
         global can_control,count_time,check_firsttime,mod_hok_killblock# เวลาผ่านไป 2 วิ ค่อยสุ่มใหม่
         if (count_time%mod_hok_killblock==0 and check_firsttime):

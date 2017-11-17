@@ -17,9 +17,9 @@ class SpaceGameWindow(arcade.Window):
         self.baby_sprite = arcade.Sprite('character/babyfly1.png',0.15)
 
         self.block_sprite = arcade.Sprite('character/fixblock.png',1)
-        self.block_cont_sprite = arcade.Sprite('character/fixblock.png',1)
+        self.block2_sprite = arcade.Sprite('character/fixblock.png',1)
         self.blood_sprite = arcade.Sprite('character/fixblood.png',1)
-        self.blood_cont_sprite = arcade.Sprite('character/fixblood.png',1)
+        self.blood2_sprite = arcade.Sprite('character/fixblood.png',1)
 
         self.hok_sprite = arcade.Sprite('character/hok.png',0.23)
         self.hok2_sprite = arcade.Sprite('character/hok.png',0.23)
@@ -69,9 +69,9 @@ class SpaceGameWindow(arcade.Window):
         self.baby_sprite.draw()
 
         self.block_sprite.draw()
-        self.block_cont_sprite.draw()
+        self.block2_sprite.draw()
         self.blood_sprite.draw()
-        self.blood_cont_sprite.draw()
+        self.blood2_sprite.draw()
 
         self.hok_sprite.draw()
         self.hok2_sprite.draw()
@@ -125,14 +125,14 @@ class SpaceGameWindow(arcade.Window):
         elif not character.Insert_key and character.check_firsttime:
             self.baby_sprite = arcade.Sprite('character/babyfly1.png',0.15)
 
-        self.world.update(60)
+        self.world.update(30)
 
         self.baby_sprite.set_position(self.world.baby.x, self.world.baby.y)    # x,y in baby in world
  
         self.block_sprite.set_position(self.world.block.x, self.world.block.y)
-        self.block_cont_sprite.set_position(self.world.block_cont.x, self.world.block_cont.y)
+        self.block2_sprite.set_position(self.world.block2.x, self.world.block2.y)
         self.blood_sprite.set_position(self.world.blood.x, self.world.blood.y) 
-        self.blood_cont_sprite.set_position(self.world.blood_cont.x, self.world.blood_cont.y)
+        self.blood2_sprite.set_position(self.world.blood2.x, self.world.blood2.y)
 
         self.hok_sprite.set_position(self.world.hok.x, self.world.hok.y)
         self.hok2_sprite.set_position(self.world.hok2.x, self.world.hok2.y)
