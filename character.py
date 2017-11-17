@@ -22,7 +22,7 @@ check_state_ghost=False
 check_state_ghost2=False
 fixed_thing_velocity = 2
 mod_hok_killblock=60
-mod_ghost=60
+mod_ghost=120
 #Monster_velocity = 3
 check_firsttime=False
 check_inwindow=False
@@ -588,10 +588,10 @@ class World:
             can_control=False
         if(can_control):
             fixed_thing_velocity+= self.faster_interface()
-            if(not mod_hok_killblock==10):
+            if(not mod_hok_killblock==10 or not mod_ghost==10):
                 mod_hok_killblock-=10*self.faster_interface()
-            if(not mod_ghost==1):
-                mod_ghost-=self.faster_interface()
+            if(not mod_ghost==10):
+                mod_ghost-=10*self.faster_interface()
 
     def faster_interface(self):
         global count_time
