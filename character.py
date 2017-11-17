@@ -576,13 +576,24 @@ class Killblock_One(Model):
         global can_control,check_play_brick_sound
         if self.world.killblock_one.Check_performance():
             self.world.killblock_one.Move(0)
+        if self.world.killblock_one2.Check_performance():
+            self.world.killblock_one2.Move(0)
+        if self.world.killblock_one3.Check_performance():
+            self.world.killblock_one3.Move(0)
+        if self.world.killblock_one4.Check_performance():
+            self.world.killblock_one4.Move(0)
+        if self.world.killblock_one5.Check_performance():
+            self.world.killblock_one5.Move(0)
+        if self.world.killblock_one6.Check_performance():
+            self.world.killblock_one6.Move(0)
+
         if self.world.baby.hit(self,100,70):
             print("hit kill 1!")
             if check_play_brick_sound and can_control:
                 arcade.sound.play_sound(self.world.sound_brick)
                 check_play_brick_sound=False
             can_control=False
-
+'''
 class Killblock_One2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -685,7 +696,7 @@ class Killblock_One6(Model):
                 check_play_brick_sound=False
             can_control=False
 
-
+'''
 class Killblock_Two(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -705,7 +716,7 @@ class Killblock_Two(Model):
                 arcade.sound.play_sound(self.world.sound_brick)
                 check_play_brick_sound=False
             can_control=False
-
+'''
 class Killblock_Two2(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -805,7 +816,7 @@ class Killblock_Two6(Model):
                 arcade.sound.play_sound(self.world.sound_brick)
                 check_play_brick_sound=False
             can_control=False
-
+'''
 class Bomb(Model):  
     #def __init__(self, x, y):
     def __init__(self, world, x, y): #แก้ปัญหาการเรียกความกว้างความสูงของหน้าจอ โดยเรียกจากworldมาแทน
@@ -946,7 +957,7 @@ class World:
 
         self.hok = Hok(self,1700,100)
         self.hok2 = Hok(self,1700,100)
-        self.hok3 = Hok(self,1700,100)
+        self.hok3 = Hok(self,1700,100)   #PASS
         self.hok4 = Hok(self,1700,100)
         self.hok5 = Hok(self,1700,100)
         self.hok6 = Hok(self,1700,100)
@@ -955,23 +966,23 @@ class World:
         self.hok_move = Hok_Move(self,1700,-200)
         self.hok_move2 = Hok_Move(self,1700,-200)
         self.hok_move3 = Hok_Move(self,1700,-200)
-        self.hok_move4 = Hok_Move(self,1700,-200)
+        self.hok_move4 = Hok_Move(self,1700,-200)  #PASS
         self.hok_move5 = Hok_Move(self,1700,-200)
         self.hok_move6 = Hok_Move(self,1700,-200)
 
         self.killblock_one = Killblock_One(self,1600,579)
-        self.killblock_one2 = Killblock_One2(self,1600,579)
-        self.killblock_one3 = Killblock_One3(self,1600,579)
-        self.killblock_one4 = Killblock_One4(self,1600,579)
-        self.killblock_one5 = Killblock_One5(self,1600,579)
-        self.killblock_one6 = Killblock_One6(self,1600,579)
+        self.killblock_one2 = Killblock_One(self,1600,579)
+        self.killblock_one3 = Killblock_One(self,1600,579)
+        self.killblock_one4 = Killblock_One(self,1600,579)
+        self.killblock_one5 = Killblock_One(self,1600,579)
+        self.killblock_one6 = Killblock_One(self,1600,579)
 
         self.killblock_two = Killblock_Two(self,1600,579)
-        self.killblock_two2 = Killblock_Two2(self,1600,579)
-        self.killblock_two3 = Killblock_Two3(self,1600,579)
-        self.killblock_two4 = Killblock_Two4(self,1600,579)
-        self.killblock_two5 = Killblock_Two5(self,1600,579)
-        self.killblock_two6 = Killblock_Two6(self,1600,579)
+        self.killblock_two2 = Killblock_Two(self,1600,579)
+        self.killblock_two3 = Killblock_Two(self,1600,579)
+        self.killblock_two4 = Killblock_Two(self,1600,579)
+        self.killblock_two5 = Killblock_Two(self,1600,579)
+        self.killblock_two6 = Killblock_Two(self,1600,579)
 
         self.bomb = Bomb(self,2000,602)
         self.bomb2 = Bomb2(self,2000,602)
