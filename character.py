@@ -21,7 +21,7 @@ count_ghost2_move = 0
 check_state_ghost=False
 check_state_ghost2=False
 fixed_thing_velocity = 2
-mod_hok_killblock=60
+mod_hok_killblock=120
 mod_ghost=120
 #Monster_velocity = 3
 check_firsttime=False
@@ -115,7 +115,7 @@ class Model:
                 if self.y >=135:
                     count_hok_move3+=1
             elif count_hok_move3%2==1:
-                self.y-=1.5
+                self.y-=1
                 if(self.y<=-200):
                     count_hok_move3+=1    
         elif specify ==4 :    
@@ -124,7 +124,7 @@ class Model:
                 if self.y >=120:
                     count_hok_move4+=1
             elif count_hok_move4%2==1:
-                self.y-=2
+                self.y-=0.5
                 if(self.y<=-200):
                     count_hok_move4+=1    
         elif specify ==5 :    
@@ -142,7 +142,7 @@ class Model:
                 if self.y >=100:
                     count_hok_move6+=1
             elif count_hok_move6%2==1:
-                self.y-=2
+                self.y-=1
                 if(self.y<=-200):
                     count_hok_move6+=1     
     def Check_performance(self):
@@ -525,7 +525,7 @@ class World:
                 if can_control:
                     arcade.sound.play_sound(self.sound_bg)
             print(count_time)
-            if(count_time%60==0 and can_control):
+            if(count_time%30==0 and can_control):
                 self.score+=1
                 print("Score : ")
                 print(self.score)
@@ -588,10 +588,10 @@ class World:
             can_control=False
         if(can_control):
             fixed_thing_velocity+= self.faster_interface()
-            if(not mod_hok_killblock==10 or not mod_ghost==10):
-                mod_hok_killblock-=10*self.faster_interface()
-            if(not mod_ghost==10):
-                mod_ghost-=10*self.faster_interface()
+            if(not mod_hok_killblock==0):
+                mod_hok_killblock-=20*self.faster_interface()
+            if(not mod_ghost==0):
+                mod_ghost-=20*self.faster_interface()
 
     def faster_interface(self):
         global count_time
@@ -599,7 +599,7 @@ class World:
             if(self.score>=60):
                 return 0
             else:
-                return 1
+                return 2
         else:
              return 0
     def on_key_press(self, key, key_modifiers):
